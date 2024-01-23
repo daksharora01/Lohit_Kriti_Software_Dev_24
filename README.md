@@ -1,3 +1,4 @@
-# Main Branch
+# Development Branch
 
-This is the production branch, and shall only contain all final code.
+This is the development branch.
+It shall contain the combined code of front end (Flutter) and back end (NodeJS, ExpressJS, DB) during the development stage.

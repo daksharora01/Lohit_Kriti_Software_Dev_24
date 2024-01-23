@@ -1,3 +1,4 @@
-# Main Branch
+# Development Backend Branch
 
-This is the production branch, and shall only contain all final code.
+This is the development branch for all back end code.
+It would primarily contain all code pertaining to NodeJS, ExpressJS, and DB.

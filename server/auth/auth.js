@@ -139,26 +139,33 @@ router.get("/callback", async function (req, res) {
 
 router.get("/signout", async function (req, res) {
   // Sign out
+  console.log("Signing out user: ", req.session);
   if (req.session.userId) {
     // Look up the user's account in the cache
-    const accounts = await req.app.locals.msalClient
-      .getTokenCache()
-      .getAllAccounts();
+    req.session.destroy();
+    // const accounts = await req.app.locals.msalClient
+    //   .getTokenCache()
+    //   .getAllAccounts();
 
-    const userAccount = accounts.find(
-      (a) => a.homeAccountId === req.session.userId
-    );
+    // const userAccount = accounts.find(
+    //   (a) => a.homeAccountId === req.session.userId
+    // );
 
-    // Remove the account
-    if (userAccount) {
-      req.app.locals.msalClient.getTokenCache().removeAccount(userAccount);
-    }
+    // // Remove the account
+    // if (userAccount) {
+    //   req.app.locals.msalClient.getTokenCache().removeAccount(userAccount);
+    // }
   }
 
   // Destroy the user's session
-  req.session.destroy(function (err) {
-    res.redirect("/");
-  });
+  try{
+    res.clearCookie("token");
+    res.clearCookie("connect.sid");
+    res.send("done");
+  }
+  catch(err){
+    console.log(err);
+  }
 });
 
 module.exports = router;

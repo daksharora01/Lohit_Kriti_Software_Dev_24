@@ -119,9 +119,11 @@ function getPythonOutput(scriptPath, args) {
   console.log('Arguments:', args);
   return new Promise((resolve, reject) => {
     const pythonProcess = spawn('python3', [scriptPath, ...args]);
+    console.log(pythonProcess);
     let output = '';
     // Capture output from Python script
     pythonProcess.stdout.on('data', (data) => {
+      console.log(data);
       // output += data.toString('utf-8');
       output = data.toString();
       // Extract the final values from the output

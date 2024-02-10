@@ -44,9 +44,6 @@ const CourseReview = () => {
   useEffect(() => {
     getAllCourseReviews()
       .then((res) => {
-        res.data.sort(
-          (a, b) => new Date(b.timeOfPost) - new Date(a.timeOfPost)
-        );
         setCourseReviews(res.data);
         setFilteredCourseReviews(res.data);
         setFilteredFilteredCourseReviews(res.data);

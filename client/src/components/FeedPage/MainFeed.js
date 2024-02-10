@@ -11,7 +11,7 @@ const MainFeed = (props) => {
     getPosts()
       .then((res) => {
         res.data.sort(
-          (a, b) => new Date(b.timeOfPost) - new Date(a.timeOfPost)
+          (a, b) => new Date(b.timeOfCreation) - new Date(a.timeOfCreation)
         );
         setPosts(res.data);
         setFilteredPosts(res.data);

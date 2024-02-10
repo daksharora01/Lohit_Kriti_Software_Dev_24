@@ -39,12 +39,12 @@ module.exports.addMessageGroups = async (req, res, next) => {
 
 module.exports.getAllMessageGroups = async (req, res, next) => {
     try{
-        console.log(req.body)
+        // console.log(req.body)
         const {from, to} = req.body;
         const messages = await messageModel.find({
             'users.group_to': to
         });
-        console.log(messages);
+        // console.log(messages);
     
         const projectedMessages = messages.map((msg) => {
             return{
@@ -68,7 +68,7 @@ module.exports.getAllMessage = async (req, res, next) => {
                 { $and: [{ 'users.from': to }, { 'users.to': from }] },
             ],
         });
-        console.log(messages);
+        // console.log(messages);
     
         const projectedMessages = messages.map((msg) => {
             return{

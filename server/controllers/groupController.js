@@ -46,6 +46,7 @@ module.exports.addMember = async (req, res, next) => {
     try {
         const { groupId, member } = req.body;
         const group = await Groups.findById(groupId);
+        console.log(group);
         group.members.push(member);
         await group.save();
         return res.json({msg: 'Member added successfully'});

@@ -27,27 +27,13 @@ const postComment = (postId, content) => {
   }
   localStorage.setItem("lastCommentTime", Date.now());
 
-  // Check comment for spam
-  return axios.post(process.env.REACT_APP_BACKEND_URL+"evaluate-comment", { comment: content })
-    .then(response => {
-      if (response.data.HateRating > 50 || response.data.SpamRating > 50) {
-        return Promise.resolve({
-          data: { message: "Your comment was flagged as inappropriate/spam and hence not logged." },
-        });
-      } else {
-        return axios.post(process.env.REACT_APP_BACKEND_URL+'posts/comment', {
+  return axios.post(process.env.REACT_APP_BACKEND_URL+'posts/comment', {
           postId,
           content,
         },
           {
             withCredentials: true,
           });
-      }
-    })
-    .catch(error => {
-      console.error('Error checking comment:', error);
-      return Promise.reject(error);
-    });
 };
 
 const postFavorite = (postId) => {

@@ -41,6 +41,7 @@ const AddUsers = (props) => {
       groupId: currentChat._id,
       member: profile._id
     }).then((res) => {
+      window.location.reload();
       console.log(res);
     }).catch((error) => {
       console.error('Error adding collab:', error);

@@ -36,7 +36,7 @@ function SearchPage() {
           <div
             className={`flex ${
               hover ? " border-[1px] border-[#0016DA] " : ""
-            } pl-0 items-center bg-white shadow-sm mt-10 mb-10 w-[85vw] h-[2.5rem] rounded-xl overflow-hidden`}
+            } pl-0 items-center bg-white shadow-sm mt-10 mb-10 w-[50vw] md:w-[40vw] h-[2.5rem] rounded-xl overflow-hidden`}
           >
             <img
               src="images/search.svg"
@@ -46,7 +46,7 @@ function SearchPage() {
             <input
               type="text"
               placeholder="Search for users"
-              className="w-[90vw] h-full focus:outline-none"
+              className="md:w-[20vw] w-[20vw] h-full focus:outline-none"
               onChange={(e) => setSearch(e.target.value)}
               onFocus={() => setHover(true)}
               onBlur={() => setHover(false)}

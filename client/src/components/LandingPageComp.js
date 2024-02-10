@@ -34,7 +34,7 @@ const LandingPageComp = () => {
     >
       <FullpageSection>
         <div id="section1">
-          <div className="flex flex-col">
+          <div className="flex flex-col mt-6">
             <div className="flex w-full justify-center items-center  pt-6 h-[7vh] md:h-[5vh]">
               <div className="w-[33%] ">
                 <img className="" src="/images/logo.png" alt="logo" />
@@ -136,7 +136,7 @@ const LandingPageComp = () => {
       </FullpageSection>
       <FullpageSection>
         <div id="section5">
-          <div className="h-[100vh] z-0 pr-16 text-black flex md:justify-between flex-col md:flex-row items-center md:items-auto ">
+          <div className="h-[100vh] z-0 md:pr-16 text-black flex md:justify-between flex-col md:flex-row items-center md:items-auto md:w-[100vw]">
             <div className="w-[100vw] md:w-[35vw] flex items-center md:h-full justify-center md:justify-auto">
               <img
                 className="w-[70%] md:w-[70%] object-contain md:mt-[15vh] md:ml-[6vw] md:mb-[40vh]"

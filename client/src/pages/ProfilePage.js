@@ -27,7 +27,7 @@ function ProfilePage() {
   }, [user, searchParams]);
 
   return (
-    <div className="min-h-[100vh]">
+    <div className="min-h-[100vh] bg-[#f8f8f8]">
       <ProfilePageComp user={user} />
     </div>
   );

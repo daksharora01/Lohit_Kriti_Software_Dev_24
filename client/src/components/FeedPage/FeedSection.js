@@ -16,7 +16,7 @@ const FeedSection = (props) => {
   }, [props.posts]);
 
   return (
-    <div className=" pb-[5rem] md:pb-[1rem] flex flex-col   md:pl-[25vw] mt-[0]">
+    <div className="flex flex-col items-center pb-[5rem] md:pb-[1rem] flex flex-col   md:pl-[25vw] mt-[0]">
       {units}
     </div>
   );

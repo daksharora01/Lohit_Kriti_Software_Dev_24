@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { fetchProfileFromServer } from "../../fetch/profile";
 import { postComment, postFavorite, putLike } from "../../fetch/feed";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
 import CommentCard from "./CommentCard";
 import {
   TextField,
@@ -178,8 +179,9 @@ const FeedUnit = (props) => {
     adaptiveHeight: true,
   };
 
+
   return (
-    <div className="flex flex-col w-[100%] md:w-[90%] md:mx-auto min-h-[28rem] rounded-xl p-[15px] bg-white text-gray-700 shadow-md mb-[1rem] items-center">
+    <div className="flex flex-col  w-[90%] md:w-[90%] md:mx-auto min-h-[28rem] rounded-xl p-[15px] bg-white text-gray-700 shadow-md mb-[1rem] items-center">
       {isLoading && <Loader />}
       <div className="flex w-[100%] items-start justify-between md:w-[100%] ">
         <Link
@@ -213,30 +215,26 @@ const FeedUnit = (props) => {
         </div>
       </div>
 
-      {props.post.mediaArray && props.post.mediaArray.length !== 0 ? (
-        <Slider {...settings}>
-          {props.post.mediaArray.map((url, index) => (
-            <div className="flex min-h-[15rem] justify-center md:w-[100%] py-3">
-              {url.endsWith(".png") ||
-              url.endsWith(".jpg") ||
-              url.endsWith(".jpeg") ||
-              url.endsWith(".svg") ? (
-                <img
-                  src={url}
-                  alt={`Image ${index + 1}`}
-                  className="w-[100%] slider-image"
-                />
-              ) : (
-                <video controls>
-                  <source src={url} type="video/mp4" />
-                </video>
-              )}
-            </div>
-          ))}
-        </Slider>
-      ) : (
+      {props.post.mediaArray && props.post.mediaArray.length !== 0 ? 
+          <div className="flex min-h-[15rem] justify-center md:w-[100%] py-3 overflow-hidden">
+            {props.post.mediaArray[0].endsWith(".png") ||
+            props.post.mediaArray[0].endsWith(".jpg") ||
+            props.post.mediaArray[0].endsWith(".jpeg") ||
+            props.post.mediaArray[0].endsWith(".svg") ? (
+              <img
+                src={props.post.mediaArray[0]}
+                className="slider-image"
+                style={{ objectFit: "cover" }}
+              />
+            ) : (
+              <video controls>
+                <source src={props.post.mediaArray[0]} type="video/mp4" />
+              </video>
+            )}
+          </div>
+      :
         <div className=" md:w-[100%] h-[15rem]"></div>
-      )}
+      }
 
       <div className="flex items-center justify-between w-[100%] md:w-[100%]">
         <div className="flex gap-4">

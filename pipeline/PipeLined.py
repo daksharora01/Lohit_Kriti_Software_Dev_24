@@ -1,6 +1,7 @@
 import subprocess
 import pkg_resources
 
+print('Entered python file')
 REQUIRED_PACKAGES = [
     'numpy',
     'nltk',
@@ -16,6 +17,8 @@ for package in REQUIRED_PACKAGES:
         print('{} is NOT installed'.format(package))
         subprocess.call(['pip', 'install', package])
 
+
+print('packages downloaded')
 import re, io, json, numpy as np
 import os
 import sys
@@ -35,6 +38,7 @@ def download_nltk_data():
         nltk.download('stopwords')
 
 download_nltk_data()
+print('nltk donwloads done')
 import logging
 from nltk import word_tokenize
 from nltk.corpus import stopwords

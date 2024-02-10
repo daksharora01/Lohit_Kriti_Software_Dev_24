@@ -43,10 +43,10 @@ import logging
 from nltk import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-print('here')
 from keras.preprocessing.text import tokenizer_from_json
 from keras.utils import pad_sequences
 from keras.models import load_model
+print('here')
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)

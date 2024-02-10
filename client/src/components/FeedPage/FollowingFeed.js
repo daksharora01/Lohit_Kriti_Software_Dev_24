@@ -11,6 +11,9 @@ const FollowingFeed = (props) => {
     console.log("Running useEffect");
     getMyConnectionPosts()
       .then((res) => {
+        res.data.sort(
+          (a, b) => new Date(b.timeOfCreation) - new Date(a.timeOfCreation)
+        );
         setPosts(res.data);
         //console.log(res.data);
       })

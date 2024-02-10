@@ -2,24 +2,49 @@ import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import ChatInput from './ChatInput';
 import axios from 'axios';
-import { getAllMessageGroupsRoute, sendMessageGroupsRoute } from '../../utils/APIRoutes';
+import { addMember, getAllMessageGroupsRoute, sendMessageGroupsRoute } from '../../utils/APIRoutes';
 import { v4 as uuidv4 } from 'uuid';
 import TopbarChat from './TopbarChat';
 import { addCollab } from '../../fetch/projects';
 import { TextField, Button, Typography, Box, Paper } from '@mui/material';
 import ProfileUnit from '../Search/ProfileUnit';
+import fetchProfilesBySearch from '../../fetch/search';
 
 
 const AddUsers = (props) => {
-  const {isAddCollab, setIsAddCollab, profiles, setProfiles, collab, setCollab} = props;
+  const {isAddCollab,setIsAddCollab, currentChat} = props;
+  const [profiles, setProfiles] = useState([]);
+  const [collab, setCollab] = useState("");
+
+
+  useEffect(() => {
+    fetchProfilesBySearch(collab).then((res) => {
+      res = res.filter((profile) => {
+        let flag = true;
+        currentChat.members.forEach((creator) => {
+          if(profile._id === creator._id){
+            flag = false;
+          }
+        });
+        return flag;
+      });
+      console.log(res);
+      setProfiles(res);
+    }).catch((error) => {
+      console.error('Error fetching collab:', error);
+    });
+  },[collab, currentChat]);
+
 
   const handleAddCollab = (profile) => {
-    /*addCollab(project._id, profile._id).then((res) => { //TODO: CONNECT TO BACKEND
-      window.location.reload();
+    axios.post(addMember, {
+      groupId: currentChat._id,
+      member: profile._id
+    }).then((res) => {
+      console.log(res);
     }).catch((error) => {
-      console.log(error)
-    });*/
-    console.log("HandleAddCollab");
+      console.error('Error adding collab:', error);
+    });
   }
   return (
   <div className={`${isAddCollab ? 'block' : 'hidden'} flex justify-center rounded-xl items-center z-[999] 
@@ -63,6 +88,7 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
   useEffect(() => {
     (async () => {
       if (currentChat) {
+        console.log("Current Chat: ",currentChat);
         const response = await axios.post(getAllMessageGroupsRoute, {
           from: currentUser._id,
           to: currentChat._id
@@ -127,7 +153,7 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
     return (
         <Container>
             <TopbarChat currentUser={currentUser} title="Community" />
-            <AddUsers isAddCollab={addUser} setIsAddCollab={setAddUser} profiles={currentChat.profiles} setProfiles={currentChat.setProfiles} collab={currentChat.collab} setCollab={currentChat.setCollab} />
+            <AddUsers isAddCollab={addUser} setIsAddCollab={setAddUser} currentChat={currentChat}/>
             <div className='chat-header flex justify-between'>
               <div className="">
                 <div className="user-details">

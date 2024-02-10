@@ -15,9 +15,7 @@ function ProfilePage() {
   useEffect(() => {
     if (localStorage.getItem("user") == null) {
       localStorage.setItem("user", searchParams.get("user"));
-      fetchProfileFromServer(localStorage.getItem("user"))
-        .then((response) => setUser(response))
-        .catch((error) => console.error(error));
+      window.location.href="/feed";
     }
     if (user === null && localStorage.getItem("user") !== null) {
       fetchProfileFromServer(localStorage.getItem("user"))

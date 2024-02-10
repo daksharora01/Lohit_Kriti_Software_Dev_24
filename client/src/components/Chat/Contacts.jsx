@@ -2,12 +2,20 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Logo from '../../assets/logo.svg';
 import {Button, Box, Container, Paper, TextField, Typography } from '@mui/material';
+import axios from 'axios';
+import { addGroup } from '../../utils/APIRoutes';
 
 const CreateGroupForm = ({ createGroup, setCreateGroup }) => {
   const [groupName, setGroupName] = useState('');
 
   const handleCreateGroup = () => {
-    console.log(groupName);
+    axios.post(addGroup, { name: groupName , members: [
+      JSON.parse(localStorage.getItem('chat-app-user'))._id
+    ] }).then((res) => {
+      window.location.reload();
+    }).catch((err) => {
+      console.log(err);
+    });
     setCreateGroup(false);
   };
 

@@ -79,7 +79,7 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
     }, [messages]);
     return (
         <Container>
-            <TopbarChat currentUser={currentUser} />
+            <TopbarChat currentUser={currentUser} title="Chats" />
             <div className="chat-header">
                 <div className="user-details">
                     <div className="avatar">

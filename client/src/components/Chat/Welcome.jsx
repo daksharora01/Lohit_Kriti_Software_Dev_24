@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import Robot from '../../assets/robot.gif';
 import TopbarChat from './TopbarChat';
-export default function Welcome({currentUser}) {
+export default function Welcome({currentUser, title}) {
   return (
     <Container>
-      <TopbarChat currentUser={currentUser} />
+      <TopbarChat currentUser={currentUser} title={title} />
       <div className='mx-auto flex flex-col justify-center items-center'>
       <img src={Robot} alt="Robot" className='robo mx-auto'/>
       <h1 className='mx-auto text-center'>

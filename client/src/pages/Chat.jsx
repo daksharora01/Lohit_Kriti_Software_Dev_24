@@ -16,6 +16,7 @@ function Chat() {
   const [currentChat, setCurrentChat] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const [users, setUsers] = useState([]);
+
   useEffect(() => {
     (async () => {
       localStorage.removeItem("chat-app-user");
@@ -69,7 +70,7 @@ function Chat() {
         />
         {console.log(currentChat)}
         {isLoaded && !currentChat ? (
-          <Welcome currentUser={currentUser} />
+          <Welcome currentUser={currentUser} title="Chats"/>
         ) : (
           <ChatContainer
             currentChat={currentChat}

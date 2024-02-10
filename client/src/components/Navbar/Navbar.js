@@ -64,6 +64,7 @@ function Navbar() {
           <Tab to="/projects" name="Projects" img="projects" />
           <Tab to="/discussion" name="Discussions" img="questions" />
           <Tab to="/search" name="Search" img="search" />
+          <Tab to="/community" name="Community" img="group" />
         </div>
       </div>
     </div>

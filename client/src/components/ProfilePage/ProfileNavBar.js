@@ -61,6 +61,7 @@ function ProfileNavBar(props) {
           <Tab to="/projects" img="projects" other={props.other}/>
           <Tab to="/discussion" img="questions" other={props.other}/>
           <Tab to = "/search" img="search" other={props.other}/>
+          <Tab to = "/community" img="group" other={props.other}/>
         </div>
       </div>
     </div>

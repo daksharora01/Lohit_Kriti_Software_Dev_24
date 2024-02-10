@@ -70,12 +70,13 @@ function GroupChat() {
     <Container>
       <div className="container">
         <Contacts
+          isGroup={true}
           contacts={groups}
           currentUser={currentUser}
           changeChat={handleChatChange}
         />
         {isLoaded && !currentChat ? (
-          <Welcome currentUser={currentUser} />
+          <Welcome currentUser={currentUser} title="Community"/>
         ) : (
           <ChatContainer
             currentChat={currentChat}

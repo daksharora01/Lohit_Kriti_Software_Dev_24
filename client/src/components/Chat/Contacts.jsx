@@ -1,50 +1,95 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Logo from '../../assets/logo.svg';
+import {Button, Box, Container, Paper, TextField, Typography } from '@mui/material';
 
-export default function Contacts({ contacts, currentUser, changeChat }) {
-    const [currentUserName, setCurrentUserName] = useState(undefined);
-    const [currentUserImage, setCurrentUserImage] = useState(undefined);
-    const [currentSelected, setCurrentSelected] = useState(undefined);
-    var userSmall = '/images/user.svg'
-    useEffect(() => {
-        (async () => {
-          if (currentUser) {
-            setCurrentUserImage(userSmall);
-            setCurrentUserName(currentUser.name);
-          }
-        })();
-      }, [currentUser]);
-      
-    const changeCurrentChat = (index, contact) => {
-        setCurrentSelected(index);
-        changeChat(contact);
-    };
-    return (
-        <>
-            {
-                currentUserImage && currentUserName && (
-                    <Container>
-                        <div className="brand">
-                            <div className='title'>PeerPulse</div>
+const CreateGroupForm = ({ createGroup, setCreateGroup }) => {
+  const [groupName, setGroupName] = useState('');
+
+  const handleCreateGroup = () => {
+    console.log(groupName);
+    setCreateGroup(false);
+  };
+
+  return (
+      <Container component={Paper} maxWidth="xs">
+        <Box p={3}>
+          <Typography variant="h4" gutterBottom>Add a new Post</Typography>
+          <TextField
+            label={"Name *"}
+            variant="outlined"
+            fullWidth
+            size="small"
+            value={groupName}
+            onChange={(e) => setGroupName(e.target.value)}
+            margin="normal"
+          />
+          <div className="flex gap-2 justify-between mt-4">
+            <Button variant="contained" onClick={handleCreateGroup} className=' enabled:bg-[#0016DA]'
+            disabled={groupName===""}>Add</Button>
+            <Button variant="contained"  onClick={() => setCreateGroup(false)} style={{ backgroundColor: '#0016DA' }}>Cancel</Button>
+          </div>          
+        </Box>
+      </Container>
+  )
+}
+
+
+export default function Contacts({ contacts, currentUser, changeChat, isGroup }) {
+  const [currentUserName, setCurrentUserName] = useState(undefined);
+  const [currentUserImage, setCurrentUserImage] = useState(undefined);
+  const [currentSelected, setCurrentSelected] = useState(undefined);
+  const [createGroup, setCreateGroup] = useState(false);
+
+  var userSmall = '/images/user.svg'
+  useEffect(() => {
+    (async () => {
+      if (currentUser) {
+        setCurrentUserImage(userSmall);
+        setCurrentUserName(currentUser.name);
+      }
+    })();
+  }, [currentUser]);
+
+  const changeCurrentChat = (index, contact) => {
+    setCurrentSelected(index);
+    changeChat(contact);
+  };
+  return (
+    <>
+      <div
+        className={`flex justify-center rounded-xl items-center z-[999]
+          w-screen h-screen bg-[#00000022] fixed top-0 left-0
+          ${createGroup ? " block" : " hidden"}`}
+      >
+        <CreateGroupForm createGroup={createGroup} setCreateGroup={setCreateGroup} />
+      </div>
+      {
+        currentUserImage && currentUserName && (
+          <Cont>
+            <div className='h-[100vh] flex flex-col justify-between items-center'>
+              <div className='w-full h-[90vh] flex flex-col'>
+                <div className="brand">
+                  <div className='title'>PeerPulse</div>
+                </div>
+                <div className="contacts">
+                  {
+                    contacts.map((contact, index) => {
+                      if (contact === null) return null;
+                      return (
+                        <div className={`contact ${index === currentSelected ? 'selected' : ''}`} key={index} onClick={() => changeCurrentChat(index, contact)}>
+                          <div className="avatar">
+                            <img src={userSmall} alt="" />
+                          </div>
+                          <div className="username">
+                            <h3>{contact.name}</h3>
+                          </div>
                         </div>
-                        <div className="contacts">
-                            {
-                                contacts.map((contact, index) => {
-                                    if (contact === null) return null;
-                                    return ( 
-                                        <div className={`contact ${index === currentSelected ? 'selected' : ''}`} key={index} onClick={() => changeCurrentChat(index, contact)}>
-                                            <div className="avatar">
-                                                <img src={userSmall} alt="" />
-                                            </div>
-                                            <div className="username">
-                                                <h3>{contact.name}</h3>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                        </div>
-                        {/*<div className="current-user">
+                      );
+                    })}
+                </div>
+              </div>
+              {/*<div className="current-user">
                             <div className="avatar">
                                 <img src={userSmall} alt="avatar" />
                             </div>
@@ -52,14 +97,28 @@ export default function Contacts({ contacts, currentUser, changeChat }) {
                                 <h2>{currentUserName}</h2>
                             </div>
                               </div>*/}
-                    </Container>
-                )
-            }
-        </>
-    )
+              {isGroup &&
+                <div>
+                  <div
+                    className="flex justify-center shadow-lg items-center gap-2
+                                      w-[180px] h-[45px] bg-[#FFFFFF] border-[#0016DA] border-2 mb-[1rem] rounded-full "
+                    onClick={() => setCreateGroup(true)}
+                  >
+                    <div className="text-[#0016DA] text-[0.875rem] font-semibold">
+                      Create Group
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          </Cont>
+        )
+      }
+    </>
+  )
 }
 
-const Container = styled.div`
+const Cont = styled.div`
 position: fixed;  
 top: 0;
 left: 0;
@@ -95,6 +154,7 @@ border-right: 1px solid #00000076;
 .contacts {
   padding-top: 1rem;
   display: flex;
+  padding-bottom: 1rem;
   flex-direction: column;
   align-items: center;
   overflow: auto;

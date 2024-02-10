@@ -5,10 +5,57 @@ import axios from 'axios';
 import { getAllMessageGroupsRoute, sendMessageGroupsRoute } from '../../utils/APIRoutes';
 import { v4 as uuidv4 } from 'uuid';
 import TopbarChat from './TopbarChat';
+import { addCollab } from '../../fetch/projects';
+import { TextField, Button, Typography, Box, Paper } from '@mui/material';
+import ProfileUnit from '../Search/ProfileUnit';
+
+
+const AddUsers = (props) => {
+  const {isAddCollab, setIsAddCollab, profiles, setProfiles, collab, setCollab} = props;
+
+  const handleAddCollab = (profile) => {
+    /*addCollab(project._id, profile._id).then((res) => { //TODO: CONNECT TO BACKEND
+      window.location.reload();
+    }).catch((error) => {
+      console.log(error)
+    });*/
+    console.log("HandleAddCollab");
+  }
+  return (
+  <div className={`${isAddCollab ? 'block' : 'hidden'} flex justify-center rounded-xl items-center z-[999] 
+  w-screen h-screen bg-[#00000022] fixed top-0 left-0`}>
+    <div className='bg-white rounded-xl shadow-lg'>
+      <div className='flex justify-end'>
+        <img src="images/close.svg" alt="close" className='w-[2vw] m-2 hover:cursor-pointer' onClick={() => setIsAddCollab(false)} />
+      </div>
+      <div className='flex flex-col gap-4 items-center p-8'>
+        <div className='text-[#0016DA] text-[1.5rem] font-bold'>
+          Add Member
+        </div>
+        <input type="text" placeholder="Search for users" className='border rounded-lg p-2 w-[20vw]' onChange={(e) => setCollab(e.target.value)} />
+        <div className='flex flex-col gap-2 w-[20vw]'>
+          {
+            profiles && profiles.length!==0 && 
+            <div className='flex flex-col gap-2'>
+              {profiles.map((profile, index) => (
+                <div className='flex justify-between items-center' >
+                  <ProfileUnit key={index} user={profile} />
+                  <Button variant="contained" className='bg-[#0016DACC] h-10' onClick={() => handleAddCollab(profile)}>Add</Button> 
+                </div>
+              ))}
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>  
+  )
+}
 
 export default function ChatContainer({ currentChat, currentUser, socket }) {
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [addUser, setAddUser] = useState(false);
   const scrollRef = useRef();
   
   var userSmall = '/images/user.svg';
@@ -79,8 +126,10 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
     }, [messages]);
     return (
         <Container>
-            <TopbarChat currentUser={currentUser} />
-            <div className="chat-header">
+            <TopbarChat currentUser={currentUser} title="Community" />
+            <AddUsers isAddCollab={addUser} setIsAddCollab={setAddUser} profiles={currentChat.profiles} setProfiles={currentChat.setProfiles} collab={currentChat.collab} setCollab={currentChat.setCollab} />
+            <div className='chat-header flex justify-between'>
+              <div className="">
                 <div className="user-details">
                     <div className="avatar">
                         <img src={userSmall} alt=''/>
@@ -89,6 +138,13 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
                         <h3>{currentChat.name}</h3>
                     </div>
                 </div>
+              </div>
+              <img
+                src="images/addCollab.svg"
+                alt="add collab"
+                className={` hover:cursor-pointer md:max-w-[60px] md:max-h-[60px] md:w-[3vw] md:h-[3vw] md:min-w-[32px] md:min-h-[32px]  rounded-full h-[45px] w-[45px]`}
+                onClick={() => setAddUser(true)}
+              />
             </div>
             <div className="chat-messages">
                 {messages.map((message) => {

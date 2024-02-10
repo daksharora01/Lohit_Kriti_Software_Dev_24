@@ -15,7 +15,7 @@ for package in REQUIRED_PACKAGES:
         print('{} ({}) is installed'.format(dist.key, dist.version))
     except pkg_resources.DistributionNotFound:
         print('{} is NOT installed'.format(package))
-        subprocess.call(['pip', 'install', package])
+        subprocess.call(['pip3', 'install', package])
 
 
 print('packages downloaded')

@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { addtoPortfolio } from "../../fetch/profile";
 import { fetchProfileFromServer } from "../../fetch/profile";
-import { getMyProjects } from "../../fetch/projects";
+import { getMyProjects, deleteProject } from "../../fetch/projects";
 
 const ProfileProjects = () => {
   const [hover, setHover] = useState(false);
   const [userProjects, setUserProjects] = useState("");
   const [portfolio, setPortfolio] = useState([]);
   const [user, setUser] = useState();
+
+  const handleDeleteProject = (projectId) => {
+    deleteProject(projectId)
+      .then((res) => {
+        console.log(res);
+        window.location.reload();
+      })
+      .catch((err) => console.log(err));
+  };
+
 
   const handleHover = () => {
     setHover(!hover);
@@ -110,14 +120,21 @@ const ProfileProjects = () => {
               </div>
               <div className="flex justify-between mx-3 items-center mb-2">
                 <div className="w-[100%] flex justify-between text-[0.875rem] gap-1">
-                  <div className="flex gap-1 items-center">
+                <div className="flex gap-3 items-center">
+                    <div className="flex gap-1">
+                      <img
+                        src="./images/star.svg"
+                        alt="Description"
+                        className="object-cover object-center w-[1.25rem] h-[1.25rem]"
+                      />
+                      {project.rating.toFixed(1)}
+                    </div>
                     <img
-                      src="./images/star.svg"
-                      alt="Description"
-                      className="object-cover object-center w-[1.25rem] h-[1.25rem]"
-                    />
-                    {project.rating.toFixed(1)}
-                  </div>
+                        src='./images/delete.svg'
+                        className="object-cover object-center w-[1.25rem] h-[1.25rem]"
+                        onClick={() => handleDeleteProject(project._id)}
+                      />
+                </div>          
                   {portfolio && portfolio.includes(project._id) ?
                     <div
                       onClick={() => handleAddToPortfolio(project._id)}

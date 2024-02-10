@@ -106,6 +106,12 @@ const postComment = (id, content) => {
     });
 };
 
+const deleteProject = (id) => {
+  return axios.delete(`http://localhost:3001/projects/${id}`, {
+    withCredentials: true,
+  });
+}
+
 
 export {
   getProjects,
@@ -115,4 +121,5 @@ export {
   getMyProjects,
   postComment,
   addCollab,
+  deleteProject,
 };

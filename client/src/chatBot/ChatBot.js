@@ -93,7 +93,7 @@ function ChatBot() {
 
   return (
     <div className="App">
-      <div className="relative mb-[3rem] md:mb-[4rem] h-[60vh] w-[90vw] md:h-[80vh] md:w-[70vw] ">
+      <div className="relative mb-[3rem] md:mb-[4rem] w-[40vw] md:h-[75vh] md:w-[30vw] mr-[4rem] md:mr-[3vw] p-2">
         <MainContainer>
           <ChatContainer>
             <MessageList

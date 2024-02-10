@@ -149,18 +149,14 @@ const CourseReview = () => {
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row bg-[#F8F8F8] md:w-full min-h-[100vh]">
+    <div className="flex flex-col md:flex-row bg-[#F8F8F8] md:w-full min-h-[100vh] pb-[5rem] md:pb-[2rem]">
       <Navbar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
       <div
-        className="fixed z-20 flex justify-center shadow-lg items-center gap-2 md:bottom-2 md:right-2 bottom-[9vh] right-2
+        className="fixed z-20 flex justify-center shadow-lg items-center gap-2 md:bottom-2 md:right-2 bottom-[11vh] right-2
                     w-[180px] h-[45px] bg-[#FFFFFF] rounded-full "
         onClick={() => setDialogOpen(true)}
       >
-        <img
-          src="images/add.svg"
-          alt="add"
-          className={`h-[50%] md:h-[65%] object-contain`}
-        />
+        <img src="images/add.svg" alt="add" className={`w-[20%] h-[50%]`} />
         <div className="text-[#0016DA] text-[0.875rem] font-semibold">
           Add Review
         </div>
@@ -179,11 +175,11 @@ const CourseReview = () => {
           setFilteredCourseReviews={setFilteredCourseReviews}
         />
         <div
-          className="mt-[10vh] min-h-[2rem] z-[200] relative"
+          className="mt-[2rem] min-h-[2rem] z-[200] relative"
           ref={filterRef}
         >
           <div
-            className={`bg-white p-4 absolute ml-auto mt-[2rem] right-[4vw] shadow-xl min-[200px] w-[20vw] ml-auto ${
+            className={`bg-white p-4 absolute mt-[2rem] right-[4vw] shadow-xl min-[200px] w-[50vw] md:w-[20vw] lg:w-[20vw] ml-auto ${
               isFilterOpen ? "block" : "hidden"
             }`}
           >

@@ -1,27 +1,19 @@
-import React from "react";
-import Topbar from "../components/Navbar/Topbar";
-import HeaderCard from "../components/CourseView/HeaderCard";
-import CommentCard from "../components/CourseView/CommentCard";
-import { useEffect, useRef, useState } from "react";
-import {
-  getCourseReview,
-  postComment,
-  toggleEnroll,
-} from "../fetch/courseReview";
-import {
-  TextField,
-  Button,
-  Container,
-  Typography,
-  Box,
-  Paper,
-} from "@mui/material";
+import React from 'react';
+import Topbar from '../components/Navbar/Topbar';
+import HeaderCard from '../components/CourseView/HeaderCard';
+import CommentCard from '../components/CourseView/CommentCard';
+import { useEffect, useRef, useState } from 'react';
+import { getCourseReview,postComment,toggleEnroll } from '../fetch/courseReview';
+import { TextField, Button, Container, Typography, Box, Paper } from '@mui/material';
+import Loader from '../components/Loader';
 
 function CourseView() {
-  const [course, setCourse] = useState({});
-  const [comment, setComment] = useState("");
-  const [isAddComment, setIsAddComment] = useState(false);
-  const [enrolled, setEnrolled] = useState(true);
+    const [course, setCourse] = useState({});
+    const [comment,setComment] = useState('');
+    const [isAddComment, setIsAddComment] = useState(false);
+    const [enrolled, setEnrolled] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -42,16 +34,18 @@ function CourseView() {
       });
   }, []);
 
-  const handleAddComment = () => {
-    postComment(course._id, comment).then((res) => {
-      if (res.data.message) {
-        alert(res.data.message);
-        return;
-      }
-      console.log("Comment Posted:  ", res);
-      window.location.reload();
-    });
-  };
+    const handleAddComment = () => {
+      setIsLoading(true);
+      postComment(course._id, comment).then((res) => {
+        if (res.data.message) {
+          alert(res.data.message);
+          setIsLoading(false);
+          return;
+        }
+        console.log('Comment Posted:  ', res);
+        window.location.reload();
+      });
+    };
 
   const handleEnroll = () => {
     toggleEnroll(course._id).then((res) => {
@@ -62,7 +56,8 @@ function CourseView() {
   };
 
   return (
-    <div className="w-screen  md:w-full flex flex-col justify-center items-center mb-[10vh]">
+    <div className="w-screen flex flex-col justify-center items-center mb-[10vh]">
+      {isLoading && <Loader /> }
       <div className="fixed top-0 left-0 right-0 z-50">
         <Topbar title="Course Review" isSearchDisabled={true} />
       </div>
@@ -160,8 +155,10 @@ function CourseView() {
             />
             <Button
               variant="contained"
+              className='enabled:bg-[#0016DA] bg-[#0016DA]'
+              disabled={comment===""}              
               onClick={handleAddComment}
-              style={{ backgroundColor: "#0016DA", width: "70vw  " }}
+              style={{width: "70vw  " }}
             >
               Submit
             </Button>

@@ -7,19 +7,19 @@ const CourseReviewComp = (props) => {
 
   return (
     <div
-      className="flex items-center w-[80vw] md:w-[65vw] mt-5 mb-5 h-[28vh] rounded-xl shadow-lg bg-white hover:scale-[1.03] transition-all duration-300 overflow-hidden"
+      className="flex items-center w-[80vw] md:w-[65vw] mt-5 mb-5 h-[23vh] lg:h-[30vh] md:h-[28vh] rounded-xl shadow-lg bg-white hover:scale-[1.03] transition-all duration-300 overflow-hidden"
       onClick={() =>
         (window.location.href = `/courseView?id=${courseReview._id}`)
       }
     >
-      <div className="w-3/4 md:w-1/4 flex overflow-hidden">
+      <div className="w-2/5 md:w-1/3 lg:w-1/4 flex overflow-hidden">
         <img
           src={coursePic || image}
           alt="course pic"
-          className="h-[28vh] w-auto md:w-full object-cover object-center"
+          className="h-[28vh] w-[100%]"
         />
       </div>
-      <div className="md:w-3/4 py-[20px] px-[20px] flex flex-col h-full justify-between">
+      <div className="w-3/4 py-[20px] px-[20px] flex flex-col h-full justify-between">
         <div>
           <h1
             style={{

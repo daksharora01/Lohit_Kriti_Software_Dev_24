@@ -113,7 +113,7 @@ function Projects() {
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row bg-[#F8F8F8] -min-w-screen min-h-[100vh]">
+    <div className="flex flex-col md:flex-row bg-[#F8F8F8] -min-w-screen min-h-[100vh] pb-[5rem]">
       <Navbar
         isExpanded={isExpanded}
         setIsExpanded={setIsExpanded}
@@ -134,11 +134,11 @@ function Projects() {
           setFilteredProjects={setFilteredProjects}
         />
         <div
-          className="mt-[10vh] min-h-[2rem] z-[100] relative"
+          className="mt-[2rem] min-h-[2rem] z-[100] relative"
           ref={filterRef}
         >
           <div
-            className={`bg-white p-4 absolute ml-auto mt-[2rem] right-[5vw] shadow-xl min-[200px] w-[20vw] ml-auto ${
+            className={`bg-white p-4 absolute mt-[2rem] right-[4vw] shadow-xl min-[200px] w-[50vw] md:w-[20vw] lg:w-[20vw] ml-auto ${
               isFilterOpen ? "block" : "hidden"
             }`}
           >
@@ -201,14 +201,14 @@ function Projects() {
         </div>
       </div>
       <div
-        className="fixed flex justify-center shadow-lg items-center gap-2 md:bottom-2 md:right-2 bottom-[9vh] right-2
+        className="fixed flex justify-center shadow-lg items-center gap-2 md:bottom-2 md:right-2 bottom-[11vh] right-2
                      w-[180px] h-[45px] bg-[#FFFFFF] rounded-full "
         onClick={() => setIsAddProject(true)}
       >
         <img
           src="images/add.svg"
           alt="add"
-          className={`h-[50%] md:h-[65%] object-contain`}
+          className={`h-[50%] md:h-[65%]`}
         />
         <div className="text-[#0016DA] text-[0.875rem] font-semibold">
           Add a Project

@@ -11,6 +11,7 @@ import { TextField, Button, Container, Typography, Box, Paper } from '@mui/mater
 import { Input } from '@mui/base';
 import fetchProfilesBySearch from '../fetch/search';
 import ProfileUnit from '../components/Search/ProfileUnit';
+import Loader from '../components/Loader';
 
 function ProjectView() {
     const [project, setProject] = useState({});
@@ -19,6 +20,7 @@ function ProjectView() {
     const [isAddCollab, setIsAddCollab] = useState(false);
     const [collab,setCollab] = useState('');
     const [profiles, setProfiles] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -83,9 +85,11 @@ function ProjectView() {
     };
 
     const handleAddComment = () => {
+      setIsLoading(true);
       postComment(project._id, comment).then((res) => {
         if (res.data.message) {
           alert(res.data.message);
+          setIsLoading(false);
           return;
         }
         console.log('Comment Posted:  ', res);
@@ -120,6 +124,7 @@ function ProjectView() {
     }
   return (
     <div className="w-screen flex flex-col justify-center items-center mb-[10vh]">
+      {isLoading && <Loader /> }
       <div className="fixed top-0 left-0 right-0 z-50">
         <Topbar title="Project" isSearchDisabled={true} />
       </div>
@@ -222,8 +227,15 @@ function ProjectView() {
               onChange={(e) => setComment(e.target.value)}
               margin="normal"
             />
-          <Button variant="contained" onClick={handleAddComment} style={{ backgroundColor: '#0016DA',width:'70vw  ' }}>Submit</Button>
-
+            <Button
+              variant="contained"
+              className='enabled:bg-[#0016DA] bg-[#0016DA]'
+              disabled={comment===""}              
+              onClick={handleAddComment}
+              style={{width: "70vw  " }}
+            >
+              Submit
+            </Button>
           </div>
         </div>        
         <div>

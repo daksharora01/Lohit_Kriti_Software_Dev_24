@@ -1,6 +1,5 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import EditProfileCard from "./pages/editProfileCard";
 import LandingPage from "./pages/LandingPage";
 import ProfilePage from "./pages/ProfilePage";
 import Feed from "./pages/Feed";
@@ -14,7 +13,7 @@ import SearchPage from "./pages/SearchPage";
 import DiscussionView from "./pages/discussionView";
 import CourseView from "./pages/courseView";
 import { Navigate } from "react-router-dom";
-
+import EditProfileCard from "./components/ProfilePage/EditProfileCard";
 
 function App() {
   const user = localStorage.getItem("user");
@@ -44,11 +43,11 @@ function App() {
         <Route path="/discussionView" element={<DiscussionView />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projectview" element={<ProjectView />} />
-        <Route path="/editProfile" element={<EditProfileCard />} />
         <Route path="/courseReview" element={<CourseReview />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/courseView" element={<CourseView />} />
         <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/editProfile" element={<EditProfileCard />} />
       </Routes>
     </BrowserRouter>
   );

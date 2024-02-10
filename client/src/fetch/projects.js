@@ -90,7 +90,7 @@ const postComment = (id, content) => {
     .then(response => {
       if (response.data.HateRating > 50 || response.data.SpamRating > 50) {
         return Promise.resolve({
-          data: { message: "Your comment was flagged as inappropriate/spam and hence not logged." },
+          data: { message: "Your comment was flagged as inappropriate/spam and hence not logged. Please refrain from posting such comments otherwise you will be banned from the platform" },
         });
       } else {
         return axios.post(

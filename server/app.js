@@ -22,6 +22,7 @@ const postRoutes = require("./Routes/postRoutes.js");
 const projectRoutes = require("./Routes/projectRoutes.js");
 const messagesRoutes = require("./Routes/messagesRoute.js");
 const techStackRoutes = require("./Routes/techStacksRoutes.js");
+const groupRoutes = require("./Routes/groupRoutes.js");
 
 var app = express();
 
@@ -111,6 +112,7 @@ app.use("/posts", postRoutes);
 app.use("/projects", projectRoutes);
 app.use("/messages", messagesRoutes);
 app.use("/techstacks", techStackRoutes);
+app.use("/groups", groupRoutes);
 
 // Function to execute Python script and capture its output
 function getPythonOutput(scriptPath, args) {

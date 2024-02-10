@@ -14,6 +14,7 @@ import DiscussionView from "./pages/discussionView";
 import CourseView from "./pages/courseView";
 import { Navigate } from "react-router-dom";
 import EditProfileCard from "./components/ProfilePage/EditProfileCard";
+import GroupChat from "./pages/GroupChat";
 
 function App() {
   const user = localStorage.getItem("user");
@@ -47,6 +48,7 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/courseView" element={<CourseView />} />
         <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/community" element={<GroupChat/>} />
         <Route path="/editProfile" element={<EditProfileCard />} />
       </Routes>
     </BrowserRouter>

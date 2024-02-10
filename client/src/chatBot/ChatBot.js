@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   MainContainer,
@@ -9,7 +10,7 @@ import {
   TypingIndicator,
 } from "@chatscope/chat-ui-kit-react";
 
-const API_KEY = "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";
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 const systemMessage = {
   role: "system",
@@ -93,7 +94,7 @@ function ChatBot() {
 
   return (
     <div className="App">
-      <div className="relative mb-[3rem] md:mb-[4rem] w-[40vw] md:h-[75vh] md:w-[30vw] mr-[4rem] md:mr-[3vw] p-2">
+      <div className="relative mb-[3rem] md:mb-[4rem] h-[60vh] w-[90vw] md:h-[80vh] md:w-[70vw] ">
         <MainContainer>
           <ChatContainer>
             <MessageList

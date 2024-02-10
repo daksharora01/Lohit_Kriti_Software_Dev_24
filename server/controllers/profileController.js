@@ -3,6 +3,7 @@ const router = express.Router();
 const cloudinary = require("cloudinary").v2;
 const User = require("../models/User");
 const Project = require("../models/Project");
+const mongoose = require("mongoose");
 
 cloudinary.config({
   cloud_name: "dpobpe2ga",
@@ -14,6 +15,7 @@ cloudinary.config({
 const getUserProfile = async (req, res) => {
   await User.findById(req.params.userid)
     .populate("connections")
+    .populate("techStacks")
     .then((user) => {
       if (user._id.toString() !== req.user.toString()) {
         user.views += 1;
@@ -56,10 +58,10 @@ const updateUserProfile = async (req, res) => {
   await User.findByIdAndUpdate(req.user, req.body)
     .then((user) => {
       if (req.file) {
-        cloudinary.uploader.upload(req.file, async (result) => {
+        cloudinary.uploader.upload(req.file.path,{resource_type: 'auto'}).then(async (result) => {
           user.profilePic = result.secure_url;
           await user.save();
-        });
+      });
       }
       res.status(200).json(user);
     })
@@ -176,7 +178,7 @@ const removeFromConnection = async (req, res) => {
 
 const addtoPortfolio = async (req, res) => {
   const { project } = req.body;
-  console.log(project);
+  console.log("addtoPortfolio BODY: ", project);
   try {
     const user = await User.findById(req.user);
     const projectfound = await Project.findById(project);
@@ -197,6 +199,16 @@ const addtoPortfolio = async (req, res) => {
   }
 };
 
+const getPortfolio = async (req, res) => {
+  const userId = req.params.userid;
+  try {
+    const user = await User.findById(userId).populate("portfolio");
+    res.status(200).json(user.portfolio);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
 module.exports = {
   getProfile,
   getUserProfile,
@@ -206,4 +218,5 @@ module.exports = {
   removeFromConnection,
   addtoPortfolio,
   searchProfiles,
+  getPortfolio,
 };

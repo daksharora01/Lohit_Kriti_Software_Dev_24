@@ -7,7 +7,7 @@ const fetchProfilesBySearch = async (searchTerm) => {
     try {
         console.log("fetching profiles by search");
         const response = await axios.post(
-        `http://localhost:3001/profile/search/`,
+            process.env.REACT_APP_BACKEND_URL+`profile/search/`,
         {searchTerm},
         { withCredentials: true }
         );

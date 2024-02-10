@@ -36,7 +36,7 @@ const Topbar = (props) => {
       console.log("Logout button clicked");
       try{
         axios.defaults.headers.common["authorization"] = "";
-        axios.get("http://localhost:3001/auth/signout", { withCredentials: true }).then((res) => {
+        axios.get(process.env.REACT_APP_BACKEND_URL+"auth/signout", { withCredentials: true }).then((res) => {
           localStorage.removeItem("user");
           console.log(res);
           navigate("/");

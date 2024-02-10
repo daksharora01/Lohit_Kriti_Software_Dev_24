@@ -10,7 +10,7 @@ import "@shinyongjun/react-fullpage/css";
 const LandingPageComp = () => {
   const handleSignIn = async () => {
     console.log("clicked");
-    window.location.href = "http://localhost:3001/auth/signin";
+    window.location.href = process.env.REACT_APP_BACKEND_URL+"auth/signin";
   };
   const fullPageOptions = {
     scrollSensitivity: 5,
@@ -26,6 +26,7 @@ const LandingPageComp = () => {
       activeIndex={activeIndex}
       setActiveIndex={setActiveIndex}
       onBeforeChange={(beforeIndex, afterIndex) => {
+        console.log(process.env.REACT_APP_BACKEND_URL);
         console.log("before", beforeIndex, afterIndex);
       }}
       onAfterChange={(beforeIndex, afterIndex) => {

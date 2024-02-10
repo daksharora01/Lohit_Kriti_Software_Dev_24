@@ -47,7 +47,7 @@ function AddFeed(props) {
 
     props.setIsAddFeed(false);
 
-    axios.post('http://localhost:3001/posts/', formData, config)
+    axios.post(process.env.REACT_APP_BACKEND_URL+'posts/', formData, config)
     .then(response => {
       // Handle the response from the server
       console.log(response.data);

@@ -7,7 +7,7 @@ const fetchProfileFromServer = async (profileId) => {
   try {
     console.log("fetching profile");
     const response = await axios.get(
-      `http://localhost:3001/profile/${profileId}`,
+      `${process.env.REACT_APP_BACKEND_URL}profile/${profileId}`,
       { withCredentials: true }
     );
     return response.data;
@@ -20,7 +20,7 @@ const fetchProfileFromServer = async (profileId) => {
 const fetchOtherUserProfile = async (profileId) => {
   try {
     const response = await axios.get(
-      `http://localhost:3001/profile/${profileId}`,
+      `${process.env.REACT_APP_BACKEND_URL}profile/${profileId}`,
       { withCredentials: true }
     );
     return response.data;
@@ -32,7 +32,7 @@ const fetchOtherUserProfile = async (profileId) => {
 
 const addConnection = (userId) => {
   return axios.put(
-    `http://localhost:3001/profile/${userId}/addConnection`,
+    `${process.env.REACT_APP_BACKEND_URL}profile/${userId}/addConnection`,
     {
       userId,
     },
@@ -44,7 +44,7 @@ const addConnection = (userId) => {
 
 const addtoPortfolio = (projectId) => {
   return axios.put(
-    "http://localhost:3001/profile/addtoPortfolio",
+    `${process.env.REACT_APP_BACKEND_URL}profile/addtoPortfolio`,
     { project: projectId },
     {
       withCredentials: true,
@@ -54,7 +54,7 @@ const addtoPortfolio = (projectId) => {
 
 const removeConnection = (userId) => {
   return axios.put(
-    `http://localhost:3001/profile/${userId}/removeConnection`,
+    `${process.env.REACT_APP_BACKEND_URL}profile/${userId}/removeConnection`,
     {
       userId,
     },
@@ -65,7 +65,7 @@ const removeConnection = (userId) => {
 };
 
 const getPortfolio = (userId) => {
-  return axios.get(`http://localhost:3001/profile/getPortfolio/${userId}`, {
+  return axios.get(`${process.env.REACT_APP_BACKEND_URL}profile/getPortfolio/${userId}`, {
     withCredentials: true,
   });
 };

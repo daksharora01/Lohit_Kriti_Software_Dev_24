@@ -24,7 +24,7 @@ const EditProfileCard = (onClose) => {
 
   return (
     <form
-      action="http://localhost:3001/coursereview"
+      action={process.env.REACT_APP_BACKEND_URL+"coursereview"}
       method="post"
       encType="multipart/form-data"
     >

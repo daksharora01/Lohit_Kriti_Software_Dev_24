@@ -4,6 +4,7 @@ const router = require("express-promise-router")();
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const { default: mongoose } = require("mongoose");
+const FRONTEND_URL = process.env.FRONTEND_URL;
 
 /* GET auth callback. */
 router.get("/signin", async function (req, res) {
@@ -104,7 +105,7 @@ router.get("/callback", async function (req, res) {
             // Assuming you have the token in a variable named 'token'
             res.cookie("token", token, { httpOnly: true, sameSite: "strict" });
 
-            res.redirect("http://localhost:3000/profile"+ "?user=" + newUser._id);
+            res.redirect(`${FRONTEND_URL}/profile`+ "?user=" + newUser._id);
             res.send(JSON.stringify(user));
           }
         );
@@ -121,8 +122,7 @@ router.get("/callback", async function (req, res) {
 
           // Assuming you have the token in a variable named 'token'
           res.cookie("token", token, { httpOnly: true});
-
-          res.redirect("http://localhost:3000/profile" + "?user=" + userExists._id);
+          res.redirect(`${FRONTEND_URL}/profile` + "?user=" + userExists._id);
           res.send(JSON.stringify(user));
         }
       );

@@ -49,7 +49,7 @@ function AddProject(props) {
 
     props.setIsAddCourse(false);
 
-      axios.post('http://localhost:3001/coursereview/', formData, config)
+      axios.post(process.env.REACT_APP_BACKEND_URL+'coursereview/', formData, config)
       .then(response => {
         // Handle the response from the server
         console.log(response.data);

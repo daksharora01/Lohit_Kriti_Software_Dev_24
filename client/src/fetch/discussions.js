@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const getDiscussions = () => {
-  return axios.get('http://localhost:3001/discussion/');
+  return axios.get(`${process.env.REACT_APP_BACKEND_URL}discussion/`);
 };
 
 const getDiscussion = (id) => {
-  return axios.get(`http://localhost:3001/discussion/${id}`);
+  return axios.get(`${process.env.REACT_APP_BACKEND_URL}discussion/${id}`);
 };
 
 const postComment = (discussionId, content) => {
@@ -20,14 +20,14 @@ const postComment = (discussionId, content) => {
   localStorage.setItem("lastCommentTime", Date.now());
 
   // Check comment for spam
-  return axios.post("http://localhost:3001/evaluate-comment", { comment: content })
+  return axios.post(`${process.env.REACT_APP_BACKEND_URL}evaluate-comment`, { comment: content })
     .then(response => {
       if (response.data.HateRating > 50 || response.data.SpamRating > 50) {
         return Promise.resolve({
           data: { message: "Your comment was flagged as inappropriate/spam and hence not logged." },
         });
       } else {
-        return axios.post('http://localhost:3001/discussion/comment', {
+        return axios.post(`${process.env.REACT_APP_BACKEND_URL}discussion/comment`, {
           discussionId,
           content,
         },
@@ -44,7 +44,7 @@ const postComment = (discussionId, content) => {
 
 
 const putUpvote = (discussionId) => {
-  return axios.put('http://localhost:3001/discussion/upvote', {
+  return axios.put(`${process.env.REACT_APP_BACKEND_URL}discussion/upvote`, {
     discussionId,
   },
     {
@@ -53,7 +53,7 @@ const putUpvote = (discussionId) => {
 };
 
 const putDownvote = (discussionId) => {
-  return axios.put('http://localhost:3001/discussion/downvote', {
+  return axios.put(`${process.env.REACT_APP_BACKEND_URL}discussion/downvote`, {
     discussionId,
   },
     {
@@ -63,7 +63,7 @@ const putDownvote = (discussionId) => {
 
 const postDiscussion = (body) => {
   console.log(body);
-  return axios.post('http://localhost:3001/discussion/', body, {
+  return axios.post(`${process.env.REACT_APP_BACKEND_URL}discussion/`, body, {
     withCredentials: true,
   });
 }

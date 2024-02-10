@@ -1,17 +1,17 @@
 import axios from 'axios';
 
 const getPosts = () => {
-  return axios.get('http://localhost:3001/posts/');
+  return axios.get(process.env.REACT_APP_BACKEND_URL+'posts/');
 };
 
 const getMyConnectionPosts = () => {
-  return axios.get('http://localhost:3001/posts/myconnectionposts', {
+  return axios.get(process.env.REACT_APP_BACKEND_URL+'posts/myconnectionposts', {
     withCredentials: true,
   });
 }
 
 const getFavorites = () => {
-  return axios.get('http://localhost:3001/posts/myfavposts', {
+  return axios.get(process.env.REACT_APP_BACKEND_URL+'posts/myfavposts', {
     withCredentials: true,
   });
 }
@@ -28,14 +28,14 @@ const postComment = (postId, content) => {
   localStorage.setItem("lastCommentTime", Date.now());
 
   // Check comment for spam
-  return axios.post("http://localhost:3001/evaluate-comment", { comment: content })
+  return axios.post(process.env.REACT_APP_BACKEND_URL+"evaluate-comment", { comment: content })
     .then(response => {
       if (response.data.HateRating > 50 || response.data.SpamRating > 50) {
         return Promise.resolve({
           data: { message: "Your comment was flagged as inappropriate/spam and hence not logged." },
         });
       } else {
-        return axios.post('http://localhost:3001/posts/comment', {
+        return axios.post(process.env.REACT_APP_BACKEND_URL+'posts/comment', {
           postId,
           content,
         },
@@ -51,7 +51,7 @@ const postComment = (postId, content) => {
 };
 
 const postFavorite = (postId) => {
-  return axios.post('http://localhost:3001/posts/myfavposts', {
+  return axios.post(process.env.REACT_APP_BACKEND_URL+'posts/myfavposts', {
     postId,
   },
     {
@@ -60,7 +60,7 @@ const postFavorite = (postId) => {
 };
 
 const putLike = (postId) => {
-  return axios.put('http://localhost:3001/posts/likes', {
+  return axios.put(process.env.REACT_APP_BACKEND_URL+'posts/likes', {
     postId,
   },
     {

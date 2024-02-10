@@ -27,7 +27,7 @@ const groupRoutes = require("./Routes/groupRoutes.js");
 var app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3000",
+  origin: process.env.FRONTEND_URL,
   credentials: true,
 };
 
@@ -196,7 +196,7 @@ const server = app.listen(process.env.PORT || 8080, () => {
 
 const io = socket(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: process.env.FRONTEND_URL,
     credentials: true
   },
 });

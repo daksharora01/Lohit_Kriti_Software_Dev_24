@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const putUpvote = (commentId) => {
-    return axios.put(`http://localhost:3001/comment/like/${commentId}`,
+    return axios.put(process.env.REACT_APP_BACKEND_URL+`comment/like/${commentId}`,
     {},
     {
       withCredentials: true,
@@ -9,7 +9,7 @@ const putUpvote = (commentId) => {
   };
 
 const putDownvote = (commentId) => {
-    return axios.put(`http://localhost:3001/comment/dislike/${commentId}`,
+    return axios.put(process.env.REACT_APP_BACKEND_URL+`comment/dislike/${commentId}`,
     {},
     {
       withCredentials: true,

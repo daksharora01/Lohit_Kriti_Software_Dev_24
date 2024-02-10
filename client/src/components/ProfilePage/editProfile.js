@@ -44,7 +44,7 @@ function EditProfile(props) {
 
     props.setIsEdit(false);
 
-    axios.put('http://localhost:3001/profile/', formData, config)
+    axios.put(process.env.REACT_APP_BACKEND_URL+'profile/', formData, config)
     .then(response => {
       // Handle the response from the server
       console.log(response.data);

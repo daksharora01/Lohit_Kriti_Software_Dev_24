@@ -25,7 +25,7 @@ function AddProject(props) {
       poster: localStorage.getItem('user')
     }
     props.setIsAddDiscussion(false);
-    axios.post('http://localhost:3001/discussion/', formData, config)
+    axios.post(process.env.REACT_APP_BACKEND_URL+'discussion/', formData, config)
       .then(response => {
         // Handle the response from the server
         console.log(response.data);

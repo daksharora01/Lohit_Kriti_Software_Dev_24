@@ -53,7 +53,7 @@ function AddProject(props) {
 
     console.log(formData);
 
-    axios.post('http://localhost:3001/projects/', formData, config)
+    axios.post(process.env.REACT_APP_BACKEND_URL+'projects/', formData, config)
       .then(response => {
         // Handle the response from the server
         console.log(response.data);

@@ -83,7 +83,7 @@ const Card = (props) => {
                   user.profilePic || "images/defaultThumbnail.jpeg";
                 return (
                   <a
-                    href={`http://localhost:3000/profile`}
+                    href={`${process.env.REACT_APP_BACKEND_URL}profile`}
                     target="_blank"
                     rel="noopener noreferrer"
                     key={index}

@@ -1,22 +1,22 @@
 import axios from "axios";
 
 const getProjects = () => {
-  return axios.get("http://localhost:3001/projects/");
+  return axios.get(`${process.env.REACT_APP_BACKEND_URL}projects/`);
 };
 
 const getProject = (id) => {
-  return axios.get(`http://localhost:3001/projects/${id}`);
+  return axios.get(`${process.env.REACT_APP_BACKEND_URL}projects/${id}`);
 };
 
 const getMyProjects = () => {
-  return axios.get(`http://localhost:3001/projects/my`, {
+  return axios.get(`${process.env.REACT_APP_BACKEND_URL}projects/my`, {
     withCredentials: true,
   });
 };
 
 const addCollab = (id, user) => {
   return axios.put(
-    `http://localhost:3001/projects/${id}/addCollab`,
+    `${process.env.REACT_APP_BACKEND_URL}projects/${id}/addCollab`,
     {
       user,
     },
@@ -28,7 +28,7 @@ const addCollab = (id, user) => {
 
 const putLike = (id) => {
   return axios.put(
-    `http://localhost:3001/projects/likes/`,
+    `${process.env.REACT_APP_BACKEND_URL}projects/likes/`,
     {
       projectId: id,
     },
@@ -40,7 +40,7 @@ const putLike = (id) => {
 
 const putDislike = (id) => {
   return axios.put(
-    `http://localhost:3001/projects/dislikes/`,
+    `${process.env.REACT_APP_BACKEND_URL}projects/dislikes/`,
     {
       projectId: id,
     },
@@ -63,7 +63,7 @@ const putDislike = (id) => {
 //   }
 //   localStorage.setItem("lastCommentTime", Date.now());
 //   return axios.post(
-//     "http://localhost:3001/projects/comment/",
+//     ${process.env.REACT_APP_BACKEND_URL}projects/comment/",
 //     {
 //       projectId: id,
 //       content: content,
@@ -86,7 +86,7 @@ const postComment = (id, content) => {
   localStorage.setItem("lastCommentTime", Date.now());
   
   // Check comment for spam
-  return axios.post("http://localhost:3001/evaluate-comment", { comment: content })
+  return axios.post(`${process.env.REACT_APP_BACKEND_URL}evaluate-comment`, { comment: content })
     .then(response => {
       if (response.data.HateRating > 50 || response.data.SpamRating > 50) {
         return Promise.resolve({
@@ -94,7 +94,7 @@ const postComment = (id, content) => {
         });
       } else {
         return axios.post(
-          "http://localhost:3001/projects/comment/",
+          `${process.env.REACT_APP_BACKEND_URL}projects/comment/`,
           { projectId: id, content: content },
           { withCredentials: true }
         );
@@ -107,7 +107,7 @@ const postComment = (id, content) => {
 };
 
 const deleteProject = (id) => {
-  return axios.delete(`http://localhost:3001/projects/${id}`, {
+  return axios.delete(`${process.env.REACT_APP_BACKEND_URL}projects/${id}`, {
     withCredentials: true,
   });
 }

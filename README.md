@@ -202,6 +202,8 @@ REACT_APP_FRONTEND_URL
 
 -[@dishanttt](https://github.com/dishanttt)
 
+-[@daksharora01](https://github.com/daksharora01)
+
 -[@Durgesh Kumar Deo](https://github.com/durgeshdeo)
 
 -[@hikey-dj](https://github.com/hikey-dj)
